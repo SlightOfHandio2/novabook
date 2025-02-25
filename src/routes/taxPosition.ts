@@ -99,16 +99,17 @@ taxPositionRouter.get("/", async (req, res) => {
     // Calculate the tax position
     const taxPosition = totalSalesTax - totalTaxPayments;
 
+    const roundedTaxPosition = parseFloat(taxPosition.toFixed(2));
     logger.info("Tax position calculated", {
       date,
       totalSalesTax,
       totalTaxPayments,
-      taxPosition,
+      taxPosition: roundedTaxPosition,
     });
 
     const response: TaxPosition = {
       date,
-      taxPosition,
+      taxPosition: roundedTaxPosition,
     };
 
     res.status(200).json(response);
